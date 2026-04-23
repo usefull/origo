@@ -1,0 +1,10 @@
+.git/
+.gitignore
+.vscode/
+build/
+*.md
+*.log
+.env
+.env.*
+deploy.sh
+docker-compose.yml
