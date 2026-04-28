@@ -9,6 +9,7 @@ RUN apt-get update && apt-get install -y \
     cmake \
     git \
     ca-certificates \
+    nlohmann-json3-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
@@ -42,6 +43,9 @@ WORKDIR /app
 
 # Копируем собранный бинарник из builder
 COPY --from=builder /build/release/origo .
+
+# Копируем конфигурационный файл
+COPY origo.conf .
 
 # Меняем владельца и делаем исполняемым
 RUN chown origo:origo /app/origo && \

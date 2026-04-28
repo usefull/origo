@@ -84,6 +84,8 @@ if(NOT TARGET fmt)
     )
 endif()
 
+find_package(nlohmann_json CONFIG REQUIRED)
+
 # Создаем библиотеку с зависимостями RESTinio
 add_library(restinio_deps INTERFACE)
 target_include_directories(restinio_deps INTERFACE
@@ -100,6 +102,6 @@ add_executable(${PROJECT_NAME}
     src/main.cpp
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE restinio_deps)
+target_link_libraries(${PROJECT_NAME} PRIVATE restinio_deps nlohmann_json::nlohmann_json)
 
 message(STATUS "✅ RESTinio configured")
