@@ -1,38 +1,50 @@
 #include <restinio/all.hpp>
 #include <nlohmann/json.hpp>
 #include <iostream>
+#include <fmt/core.h>
 
+#include "../include/config.hpp"
+#include "../include/messages.hpp"
+
+using namespace std;
 using json = nlohmann::json;
+namespace err = origo::ErrorMessages;
+namespace mess = origo::InfoMessages;
 
-int main() {
+int main(int argc, char* argv[]) {
 
-    std::ifstream file("origo.conf");
+    const auto configFileName = (argc > 1) ? argv[1] : "origo.conf";
+
+    ifstream file(configFileName);
     if (!file)
     {
-        throw std::runtime_error("Не удалось открыть файл конфигурации origo.conf");
+        throw runtime_error(fmt::format(err::CantOpenConfigFile, configFileName));
     }
 
-    json config;
+    json jsonConfig;
     try {
-        file >> config;
+        file >> jsonConfig;
     } catch (const json::parse_error& e) {
-        throw std::runtime_error("Ошибка чтения файла конфигурации");
+        throw runtime_error(fmt::format(err::ConfigFileReadingError, e.what()));
     }
+
+    origo::Config config;
+    config = origo::Config::from_json(jsonConfig);
 
     using namespace restinio;
 
 #ifdef NDEBUG
-    std::cout << "Origo is running in RELEASE mode..." << std::endl;
+    #define MODE "Release"
 #else
-    std::cout << "Origo is running in DEBUG mode..." << std::endl;
+    #define MODE "Debug"
 #endif
 
-    std::cout << "Starting HTTP server on port " << config["port"] << "..." << std::endl;
+    cout << fmt::format(mess::StartPrompt, MODE, config.port) << endl;
 
     run(
         on_this_thread()
-            .port(config["port"])
-            .address(config["ip"])
+            .port(config.port)
+            .address(config.ip)
             .request_handler([](auto req) {
                 json response;
                 response["message"] = "Hello from Origo!";

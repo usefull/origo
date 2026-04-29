@@ -19,6 +19,7 @@ COPY CMakeLists.txt .
 
 # Создаем src директорию и копируем исходники
 COPY src/ ./src/
+COPY include/ ./include/
 
 # Создаём директорию для сборки и запускаем cmake
 RUN mkdir -p release && \

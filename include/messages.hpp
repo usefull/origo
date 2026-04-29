@@ -1,0 +1,21 @@
+#ifndef MESSAGES_HPP
+#define MESSAGES_HPP
+
+#include <string_view>
+
+using namespace std;
+
+namespace origo::ErrorMessages {
+
+    inline constexpr string_view CantOpenConfigFile = "Unable to open configuration file {}";
+    inline constexpr string_view ConfigFileReadingError = "Configuration file reading error: {}";
+    inline constexpr string_view CantReadIpFromConfig = "Unable to read IP-address from configuration file  (field \"ip\"):  {}";
+    inline constexpr string_view CantReadPortFromConfig = "Unable to read port number from configuration file  (field \"port\"):  {}";
+}
+
+namespace origo::InfoMessages {
+
+    inline constexpr string_view StartPrompt = "Origo({}) started on port {}";
+}
+
+#endif // MESSAGES_HPP
