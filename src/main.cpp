@@ -1,6 +1,5 @@
 #include <restinio/all.hpp>
 #include <nlohmann/json.hpp>
-#include <iostream>
 #include <fmt/core.h>
 
 #include "../include/config.hpp"
@@ -11,25 +10,9 @@ using json = nlohmann::json;
 namespace err = origo::ErrorMessages;
 namespace mess = origo::InfoMessages;
 
-int main(int argc, char* argv[]) {
-
-    const auto configFileName = (argc > 1) ? argv[1] : "origo.conf";
-
-    ifstream file(configFileName);
-    if (!file)
-    {
-        throw runtime_error(fmt::format(err::CantOpenConfigFile, configFileName));
-    }
-
-    json jsonConfig;
-    try {
-        file >> jsonConfig;
-    } catch (const json::parse_error& e) {
-        throw runtime_error(fmt::format(err::ConfigFileReadingError, e.what()));
-    }
-
-    origo::Config config;
-    config = origo::Config::from_json(jsonConfig);
+int main(int argc, char* argv[])
+{
+    const auto config = origo::Config::from_file(argc > 1 ? argv[1] : "origo.conf");
 
     using namespace restinio;
 
@@ -48,7 +31,7 @@ int main(int argc, char* argv[]) {
             .request_handler([](auto req) {
                 json response;
                 response["message"] = "Hello from Origo!";
-                response["status"] = "ok+";
+                response["status"] = "ok";
                 response["path"] = req->header().path();
                 
                 return req->create_response()
