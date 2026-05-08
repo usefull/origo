@@ -17,8 +17,9 @@ namespace origo::InfoMessages
 {
     inline constexpr string_view StartPrompt = "Origo({}) started on port {}";
     inline constexpr string_view CtrlC = "Press Ctrl+C to stop gracefully...";
-    inline constexpr string_view StopSigRecivied = "Received stop signal. Shutting down gracefully...";
-    inline constexpr string_view StoppedSuccessfully = "Server stopped successfully.";
+    inline constexpr string_view StopSigRecivied = "\nReceived stop signal. Shutting down gracefully...";
+    inline constexpr string_view StoppedSuccessfully = "Origo stopped successfully.";
+    inline constexpr string_view FatalError = "Fatal error: ";
 }
 
 #endif // MESSAGES_HPP
