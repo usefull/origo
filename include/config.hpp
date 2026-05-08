@@ -1,5 +1,4 @@
-#ifndef CONFIG_HPP
-#define CONFIG_HPP
+#pragma once
 
 #include <string>
 #include <iostream>
@@ -68,5 +67,3 @@ namespace origo {
         }
     };
 }
-
-#endif // CONFIG_HPP

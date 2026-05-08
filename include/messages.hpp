@@ -1,5 +1,4 @@
-#ifndef MESSAGES_HPP
-#define MESSAGES_HPP
+#pragma once
 
 #include <string_view>
 
@@ -21,5 +20,3 @@ namespace origo::InfoMessages
     inline constexpr string_view StoppedSuccessfully = "Origo stopped successfully.";
     inline constexpr string_view FatalError = "Fatal error: ";
 }
-
-#endif // MESSAGES_HPP
