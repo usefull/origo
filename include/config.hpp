@@ -11,8 +11,8 @@ using namespace std;
 using json = nlohmann::json;
 namespace err = origo::ErrorMessages;
 
-namespace origo {
-
+namespace origo
+{
     struct Config {
         string ip;
         uint port;
