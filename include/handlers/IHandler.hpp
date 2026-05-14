@@ -4,6 +4,6 @@ namespace origo {
 
     class IHandler {
     public:
-        virtual void Register(const std::unique_ptr<restinio::router::easy_parser_router_t> &&rawRouter) = 0;
+        virtual void Register(restinio::router::easy_parser_router_t* rawRouter) = 0;
     };
 }
